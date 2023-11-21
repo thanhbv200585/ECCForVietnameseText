@@ -1,8 +1,8 @@
 import sys
 sys.path.append("..")
-from flask import Flask, request
-from utils import decryption, encryption
-
+from flask import Flask, request, jsonify
+from utils import decryption, encryption,  generate_mapping_table
+from ECC import EllipticCurve
 app = Flask(__name__)
 
 
@@ -17,32 +17,39 @@ def encrypt():
     a = data['a']
     b = data['b']
     p = data['p']
-    n = data['n']
     input_key = data['input_key']
     plain_text = data['plain_text']
-    print("a: ", a, "b: ", b, "n: ", n,"input_key: ", input_key, "plain_text: ", plain_text)
-    encrypted_data = encryption("encrypted")
-    return {'encrypted_data': encrypted_data}
+    
+    curve = EllipticCurve(a, b, p)
+    mapping_table = generate_mapping_table(curve)
+
+    try:
+        encrypted_data = encryption(mapping_table, plain_text, input_key)
+        return {'encrypted_data': encrypted_data}
+    except ValueError:
+        response = jsonify({'error': 'The triple (a, b, p) is not suitable'})
+        response.status_code = 500
+        return response
 
 @app.route('/decrypt', methods=['POST'])
 def decrypt():
     data = request.get_json()
     a = data['a']
     b = data['b']
-    n = data['n']
+    p = data['p']
     input_key = data['input_key']
     cipher_text = data['cipher_text']
 
-    print("a: ", a, "b: ", b, "n: ", n,"input_key: ", input_key, "Cipher_text: ", cipher_text)
+    curve = EllipticCurve(a, b, p)
+    mapping_table = generate_mapping_table(curve)
 
-    decrypted_data = decrypt_function("decrypted")
-    return {'decrypted_data': decrypted_data}
-
-def encrypt_function(data):
-    return data
-
-def decrypt_function(data):
-    return data
+    try:
+        encrypted_data = decryption(mapping_table, cipher_text, input_key)
+        return {'decrypted_data': encrypted_data}
+    except ValueError:
+        response = jsonify({'error': 'The triple (a, b, p) is not suitable'})
+        response.status_code = 500
+        return response
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000, debug=True)

@@ -13,23 +13,27 @@ class EllipticCurve:
         return (y**2) % self.p == (x**3 + self.a * x + self.b) % self.p
 
     def point_add(self, p1, p2):
-        if p1 is None:
-            return p2
-        if p2 is None:
-            return p1
+        try:
+            if p1 is None:
+                return p2
+            if p2 is None:
+                return p1
 
-        x1, y1 = p1
-        x2, y2 = p2
+            x1, y1 = p1
+            x2, y2 = p2
 
-        if p1 != p2:
-            m = ((y2 - y1) * pow(x2 - x1, -1, self.p)) % self.p
-        else:
-            m = ((3 * x1**2 + self.a) * pow(2 * y1, -1, self.p)) % self.p
+            if p1 != p2:
+                m = ((y2 - y1) * pow(x2 - x1, -1, self.p)) % self.p
+            else:
+                m = ((3 * x1**2 + self.a) * pow(2 * y1, -1, self.p)) % self.p
 
-        x3 = (m**2 - x1 - x2) % self.p
-        y3 = (m * (x1 - x3) - y1) % self.p
+            x3 = (m**2 - x1 - x2) % self.p
+            y3 = (m * (x1 - x3) - y1) % self.p
 
-        return x3, y3
+            return x3, y3
+        except ValueError:
+            return None
+
 
     def point_double(self, p):
         return self.point_add(p, p)

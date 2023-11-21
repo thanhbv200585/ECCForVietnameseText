@@ -78,7 +78,7 @@ def check(a, b):
 
 def main():
     start = time.time()
-    executor = ThreadPoolExecutor(max_workers=200)
+    executor = ThreadPoolExecutor(max_workers=20)
 
     # Submit the tasks to the executor
     futures = []
