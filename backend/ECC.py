@@ -2,9 +2,9 @@ import time
 
 class EllipticCurve:
     def __init__(self, a, b, p):
-        self.a = a
-        self.b = b
-        self.p = p
+        self.a = int(a)
+        self.b = int(b)
+        self.p = int(p)
 
     def is_point_on_curve(self, point):
         if point is None:

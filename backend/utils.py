@@ -5,9 +5,9 @@ import json
 LIST_CHAR = "aàãảáạăằẵẳắặâầẫẩấậbcdđeèẽẻéẹêềễểếệfghiìĩỉíịklmnoòõỏóọôồỗổốộơờỡởớợpqrstuùũủúụưừữửứựvxyỳỹỷýỵzAÀÃẢÁẠĂẰẴẲẮẶÂẦẪẨẤẬBCDĐEÈẼẺÉẸÊỀỄỂẾỆFGHIÌĨỈÍỊKLMNOÒÕỎÓỌÔỒỖỔỐỘƠỜỠỞỚỢPQRSTUÙŨỦÚỤƯỪỮỬỨỰVXYỲỸỶÝỴZ 0123456789 .,;?!@$%^&-+()[]{}=|<>‘:"
 
 def find_generator_point(curve):
-  p = curve.p
-  a = curve.a
-  b = curve.b
+  p = int(curve.p)
+  a = int(curve.a)
+  b = int(curve.b)
   for x in range(p):
     for y in range(p):
       if (y**2 - x**3 - a*x - b) % p == 0:
@@ -64,9 +64,10 @@ def encryption(mapping_table, plaintext, key):
     encrypted_text = ""
 
     for char in plaintext:
-        p_i = list(mapping_table.values()).index(char)+1
-        p2 = (p_i+key)%(len(mapping_table)+1)
-        encrypted_point = list(mapping_table.keys())[p2-1]
+        p_i = list(mapping_table.values()).index(char) + 1
+        key_int = int(key)  # Convert key to integer
+        p2 = (p_i + key_int) % (len(mapping_table) + 1)
+        encrypted_point = list(mapping_table.keys())[p2 - 1]
         x, y = encrypted_point
         x1 = circular_shift_right(decimal_to_base3(x))
         y1 = circular_shift_right(decimal_to_base3(y))
@@ -75,15 +76,18 @@ def encryption(mapping_table, plaintext, key):
 
     return encrypted_text.strip()
 
+
 def decryption(mapping_table, encrypted_text, key):
     decrypted_text = ""
     base3_list = encrypted_text.split(" ")
-    dec = [base3_to_decimal(circular_shift_left(base3)) for base3 in base3_list] #shift left and convert base3 to decimal
-    points = [(dec[i], dec[i+1]) for i in range(0, len(dec), 2)] # generate the list of points of ciphertext
-    list_c = [list(mapping_table.keys()).index(point) + 1 for point in points] # get the list of C_i
-    list_c_prime = [(p-key)%(len(mapping_table)+1) for p in list_c] #
-    decrypted_text = [list(mapping_table.values())[c_prime-1] for c_prime in list_c_prime]
+    dec = [base3_to_decimal(circular_shift_left(base3)) for base3 in base3_list]  # shift left and convert base3 to decimal
+    points = [(dec[i], dec[i + 1]) for i in range(0, len(dec), 2)]  # generate the list of points of ciphertext
+    key_int = int(key)  # Convert key to integer
+    list_c = [list(mapping_table.keys()).index(point) + 1 for point in points]  # get the list of C_i
+    list_c_prime = [(p - key_int) % (len(mapping_table) + 1) for p in list_c]  #
+    decrypted_text = [list(mapping_table.values())[c_prime - 1] for c_prime in list_c_prime]
     return "".join(decrypted_text)
+
 
 def write_mapping_table(mapping_table, filename):
     output = {str(key) : value for key, value in mapping_table.items()}

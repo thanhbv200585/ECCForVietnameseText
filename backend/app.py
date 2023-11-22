@@ -1,10 +1,11 @@
 import sys
 sys.path.append("..")
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import the CORS module
 from utils import decryption, encryption,  generate_mapping_table
 from ECC import EllipticCurve
 app = Flask(__name__)
-
+CORS(app)  # Enable CORS for all routes
 
 @app.route('/')
 def hello():
