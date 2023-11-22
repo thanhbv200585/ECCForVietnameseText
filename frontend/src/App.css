@@ -1,0 +1,95 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #4572cd; /* Set your desired background color */
+  color: #ffffff; /* Set text color to white */
+}
+.container {
+  max-width: 1200px;
+  margin: 100px 30px;
+  padding: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-gray-800 {
+  color: rgb(0, 0, 0); /* Adjust text color for better contrast */
+}
+
+.text-3xl {
+  font-size: 1.875rem; /* Adjust font size as needed */
+}
+
+.font-bold {
+  font-weight: bold;
+}
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.bg-gray-800 {
+  background-color: #eef4ff; /* Set background color for the app */
+}
+
+.space-x-8 > * + * {
+  margin-left: 2rem; /* Adjust the spacing between components */
+}
