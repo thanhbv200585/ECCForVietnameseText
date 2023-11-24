@@ -2,7 +2,9 @@ import sys
 sys.path.append("..")
 import json
 
-LIST_CHAR = "aàãảáạăằẵẳắặâầẫẩấậbcdđeèẽẻéẹêềễểếệfghiìĩỉíịklmnoòõỏóọôồỗổốộơờỡởớợpqrstuùũủúụưừữửứựvxyỳỹỷýỵzAÀÃẢÁẠĂẰẴẲẮẶÂẦẪẨẤẬBCDĐEÈẼẺÉẸÊỀỄỂẾỆFGHIÌĨỈÍỊKLMNOÒÕỎÓỌÔỒỖỔỐỘƠỜỠỞỚỢPQRSTUÙŨỦÚỤƯỪỮỬỨỰVXYỲỸỶÝỴZ 0123456789 .,;?!@$%^&-+()[]{}=|<>‘:"
+LIST_CHAR = """
+    aàãảáạăằẵẳắặâầẫẩấậbcdđeèẽẻéẹêềễểếệfghiìĩỉíịklmnoòõỏóọôồỗổốộơờỡởớợpqrstuùũủúụưừữửứựvxyỳỹỷýỵzAÀÃẢÁẠĂẰẴẲẮẶÂẦẪẨẤẬBCDĐEÈẼẺÉẸÊỀỄỂẾỆFGHIÌĨỈÍỊKLMNOÒÕỎÓỌÔỒỖỔỐỘƠỜỠỞỚỢPQRSTUÙŨỦÚỤƯỪỮỬỨỰVXYỲỸỶÝỴZ 0123456789 .,;?!@$%^&-+/*\()[]{}=|<>‘:@_
+"""
 
 def find_generator_point(curve):
   p = int(curve.p)
