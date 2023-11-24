@@ -36,7 +36,7 @@ Before getting started, ensure that you have the following prerequisites install
 1. Clone the repository.
 2. Navigate to the backend directory: `cd backend`.
 3. Build the Docker image using the provided Dockerfile: `docker build -t backend-image .`
-4. Run the Docker container using the built image: `docker run -p 5000:5000 backend-image`
+4. Run the Docker container using the built image: `docker run -p 5000:5000 --network host backend-image`
 
 ### Frontend
 
