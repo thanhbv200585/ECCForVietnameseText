@@ -11,6 +11,8 @@ RUN pip install --upgrade pip
 # Install the dependencies
 RUN pip install --no-cache-dir flask
 
+RUN pip install Flask-Cors
+
 # Expose the Flask app's port
 EXPOSE 5000
 
